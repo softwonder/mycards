@@ -2,7 +2,7 @@
 
 # |--- Version ---|----------------------{{{
 # October 7th 2017
-version = '0.2'
+version = '0.3'
 #---}}}
 
 # |--- Imported libraries ---|----------------------{{{
@@ -17,13 +17,13 @@ homefolder = '/home/runner/.mycards/'
 
 # |--- show_instructions ---|----------------------{{{
 def show_instructions():
-	print('mycards (version ' + version + ')')
+	print('card (version ' + version + ')')
 	print('Options:')
-	print('mycards help')
-	print('mycards show card_name')
-	print('mycards add card_name')
-	print('mycards remove card_name')
-	print('mycards list')
+	print('card help')
+	print('card show card_name')
+	print('card add card_name')
+	print('card remove card_name')
+	print('card list')
 #---}}}
 
 # |--- printcard ---|----------------------{{{

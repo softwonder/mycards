@@ -16,8 +16,8 @@ os.system('cp _mycards/* /usr/share/mycards')
 if not os.path.isdir('/home/runner/.mycards'):
 	os.system('mkdir /home/runner/.mycards')
 os.system('chown runner:runner /home/runner/.mycards')
-os.system('cp mycards /usr/bin/mycards')
-os.system('chmod +x /usr/bin/mycards')
+os.system('cp card /usr/bin/card')
+os.system('chmod +x /usr/bin/card')
 print('Done.')
 #---}}}
 

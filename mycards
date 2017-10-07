@@ -2,7 +2,7 @@
 
 # |--- Version ---|----------------------{{{
 # October 7th 2017
-version = '0.1'
+version = '0.2'
 #---}}}
 
 # |--- Imported libraries ---|----------------------{{{
@@ -23,7 +23,7 @@ def show_instructions():
 	print('mycards show card_name')
 	print('mycards add card_name')
 	print('mycards remove card_name')
-	print('mycards show_all')
+	print('mycards list')
 #---}}}
 
 # |--- printcard ---|----------------------{{{
@@ -61,6 +61,40 @@ def printcard(card_name):
 		fid.close()
 #---}}}
 
+# |--- addcard ---|----------------------{{{
+def addcard(card_name):
+	try:
+		fid = open(sharedfolder + card_name, 'r')
+		found = True
+	except IOError:
+		found = False
+	if not found:
+		try:
+			fid = open(homefolder + card_name, 'r')
+			found = True
+		except IOError:
+			found = False
+	if found:
+		fid.close()
+		print('Card with that name already exists.')
+	else:
+		try:
+			fid = open(card_name, 'r')
+			found = True
+		except IOError:
+			found = False
+		if not found:
+			print('Card to be saved not found.')
+		else:
+			fid.close()
+			if os.geteuid() == 0:
+				os.system('cp ' + card_name + ' ' + \
+				sharedfolder)
+			else:
+				os.system('cp ' + card_name + ' ' + \
+				homefolder)
+#---}}}
+
 # |--- run_program ---|----------------------{{{
 def run_program(arguments):
 	if len(arguments) == 0:
@@ -79,7 +113,14 @@ def run_program(arguments):
 			finished = True
 		except:
 			finished = False
-	if (not finished):
+	if (not finished) and command == 'add':
+		try:
+			card_name = arguments[1]
+			addcard(card_name)
+			finished = True
+		except:
+			finished = False
+	if (not finished): # this has to be the final part of run_program
 		show_instructions()
 		finished = True
 #---}}}

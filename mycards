@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+
+# |--- Version ---|----------------------{{{
+# October 7th 2017
+version = '0.1'
+#---}}}
+
+# |--- Imported libraries ---|----------------------{{{
+import os
+import sys
+#---}}}
+
+# |--- Folder definitions ---|----------------------{{{
+sharedfolder = '/usr/share/mycards/'
+homefolder = '/home/runner/.mycards/'
+#---}}}
+
+# |--- show_instructions ---|----------------------{{{
+def show_instructions():
+	print('mycards (version ' + version + ')')
+	print('Options:')
+	print('mycards help')
+	print('mycards show card_name')
+	print('mycards add card_name')
+	print('mycards remove card_name')
+	print('mycards show_all')
+#---}}}
+
+# |--- printcard ---|----------------------{{{
+def printcard(card_name):
+	try:
+		fid = open(sharedfolder + card_name, 'r')
+		found = True
+	except IOError:
+		found = False
+	if not found:
+		try:
+			fid = open(sharedfolder + card_name + '.txt', 'r')
+			found = True
+		except IOError:
+			found = False
+	if not found:
+		try:
+			fid = open(homefolder + card_name, 'r')
+			found = True
+		except IOError:
+			found = False
+	if not found:
+		try:
+			fid = open(homefolder + card_name + '.txt', 'r')
+			found = True
+		except IOError:
+			found = False
+	if not found:
+		print('Card not found.')
+	else:
+		line = fid.readline()
+		while line:
+			print(line[0 : len(line) - 1])
+			line = fid.readline()
+		fid.close()
+#---}}}
+
+# |--- run_program ---|----------------------{{{
+def run_program(arguments):
+	if len(arguments) == 0:
+		finished = True
+		show_instructions()
+	else:
+		finished = False
+		command = arguments[0]
+	if (not finished) and command == 'help':
+		show_instructions()
+		finished = True
+	if (not finished) and command == 'show':
+		try:
+			card_name = arguments[1]
+			printcard(card_name)
+			finished = True
+		except:
+			finished = False
+	if (not finished):
+		show_instructions()
+		finished = True
+#---}}}
+
+# |--- Main function ---|----------------------{{{
+arguments = sys.argv
+arguments = arguments[1 : ]
+run_program(arguments)
+#---}}}

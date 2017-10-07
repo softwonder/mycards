@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+# |--- Imported libraries ---|----------------------{{{
+import os
+#---}}}
+
+# |--- Check if user has root privileges ---|----------------------{{{
+if os.geteuid() != 0:
+	exit("You need to have root privileges to run this script. Exiting.")
+#---}}}
+
+# |--- Create directories when needed and copy files ---|----------------------{{{
+if not os.path.isdir('/usr/share/mycards'):
+	os.system('mkdir /usr/share/mycards')
+os.system('cp _mycards/* /usr/share/mycards')
+if not os.path.isdir('/home/runner/.mycards'):
+	os.system('mkdir /home/runner/.mycards')
+os.system('cp mycards /usr/bin/mycards')
+os.system('chmod +x /usr/bin/mycards')
+#---}}}
+

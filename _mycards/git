@@ -3,4 +3,4 @@ git remote add origin https://github.com/softwonder/mycards
 git pull origin master
 git add .
 git commit -m "Desired text here."
-git pull origin master
+git push origin master

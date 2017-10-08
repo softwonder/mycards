@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 # |--- Version ---|----------------------{{{
-# October 7th 2017
-version = '0.3'
+# October 8th 2017
+version = '0.4'
 #---}}}
 
 # |--- Imported libraries ---|----------------------{{{
@@ -120,6 +120,29 @@ def run_program(arguments):
 			finished = True
 		except:
 			finished = False
+	if (not finished) and command == 'list':
+		print('==================================')
+		print('Cards in the shared system folder:')
+		print('----------------------------------')
+		pipe_id = os.popen('ls /usr/share/mycards/')
+		line = pipe_id.readline()
+		while line:
+			print(line[0 : len(line) - 1])
+			line = pipe_id.readline()
+		pipe_id.close()
+		print('----------------------------------')
+		print('')
+		print('=========================')
+		print('Cards in the user folder:')
+		print('-------------------------')
+		pipe_id = os.popen('ls /home/runner/.mycards/')
+		line = pipe_id.readline()
+		while line:
+			print(line[0 : len(line) - 1])
+			line = pipe_id.readline()
+		pipe_id.close()
+		print('-------------------------')
+		finished = True
 	if (not finished): # this has to be the final part of run_program
 		show_instructions()
 		finished = True

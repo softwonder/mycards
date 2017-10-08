@@ -1,0 +1,21 @@
+Viber in debian wheezy has to be installed in another way:
+#the following method worked for me:
+sudo mkdir /opt/Viber1/
+sudo chmod -R 777 /opt/Viber1
+cd /opt/Viber1/
+wget http://download.cdn.viber.com/cdn/desktop/Linux/Viber.zip
+wget http://de.archive.ubuntu.com/ubuntu/pool/main/e/eglibc/libc6_2.15-0ubuntu10.7_amd64.deb
+wget http://security.ubuntu.com/ubuntu/pool/main/e/eglibc/libc6-dev_2.15-0ubuntu10.7_amd64.deb
+# now we have to unzip Viber:
+unzip Viber.zip
+cd Viber
+mkdir libc6_2.15
+cd libc6_2.15
+# now we have to unzip both deb files in the same folder:
+dpkg -X ../../libc6-dev_2.15-0ubuntu10.7_amd64.deb .
+dpkg -X ../../libc6_2.15-0ubuntu10.7_amd64.deb .
+#now execute Viber
+LD_LIBRARY_PATH=lib/x86_64-linux-gnu .././Viber
+
+Source:
+https://lintut.com/install-viber-on-debian-ubuntu-mint-linux/
